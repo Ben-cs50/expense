@@ -1,0 +1,16 @@
+{
+  "name": "expense",
+  "version": "1.0.0",
+  "type": "module",
+   "main": "server.js",
+  "scripts": {
+    "start": "nodemon --env-file=.env server.js"    
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

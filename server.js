@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
-import smsRoute from './routes/smsRoute.js'
+import smsWebhook from './routes/smsWebhook.route.js'
 
 dotenv.config(); 
 
@@ -13,7 +13,8 @@ app.get('/', (req, res) => {
     res.send('Server is running on node');
 });
 
-app.use('/api', smsRoute);
+app.use('/api', smsWebhook);
+ 
 
 
 
