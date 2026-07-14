@@ -1,14 +1,21 @@
 import dotenv from "dotenv";
 import express from "express";
+import smsRoute from './routes/smsRoute.js'
 
 dotenv.config(); 
 
 const app = express();
 const PORT = process.env.PORT 
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
     res.send('Server is running on node');
 });
+
+app.use('/api', smsRoute);
+
+
 
 const server = app.listen(PORT, () => {
     
