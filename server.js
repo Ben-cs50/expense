@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import smsWebhook from './routes/smsWebhook.route.js'
+import transactions from './routes/transactions.route.js'
 
 dotenv.config(); 
 
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', smsWebhook);
+app.use('/api', transactions);
  
 
 
