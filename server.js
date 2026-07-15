@@ -5,6 +5,7 @@ import transactions from './routes/transactions.route.js'
 import getTransactionById from './routes/transactions.route.js'
 import updateTransactionById from './routes/transactions.route.js'
 import createManualTransaction from './routes/transactions.route.js'
+import listUnparsedTransactions from './routes/transactions.route.js'
 
 dotenv.config(); 
 
@@ -22,6 +23,7 @@ app.use('/api', transactions);
 app.use('/api', getTransactionById);
 app.use('/api', updateTransactionById);
 app.use('/api', createManualTransaction);
+app.use('/api', listUnparsedTransactions);
  
 
 

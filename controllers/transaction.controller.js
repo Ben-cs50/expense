@@ -3,14 +3,14 @@ export const listTransactions = (req, res) => {
     console.log(JSON.stringify(req.query));
     console.log(JSON.stringify(req.params));
 
-    res.status(200).json({message: "All transactions are listed"})
+    res.status(200).json({message: "All transactions are listed"});
 }
 
 export const getTransactionById = (req, res) => {
     console.log("Fetching transaction with Id");
     console.log(JSON.stringify(req.params));
 
-    res.status(200).json({message:`Transaction with ID ${req.params.id}`})
+    res.status(200).json({message:`Transaction with ID ${req.params.id}`});
 }
 export const updateTransactionById = (req, res) => {
     console.log("Updating transaction with Id");
@@ -35,5 +35,13 @@ export const createManualTransaction = (req, res) => {
         ...transactionData
 
     };
-    res.status(200).json({message:"Manual transaction created successfully", transaction: newTransaction})
+    res.status(201).json({message:"Manual transaction created successfully", transaction: newTransaction})
+}
+
+export const listUnparsedTransactions = (req, res) => {
+    console.log("Listing unparsed transactions");
+
+   
+
+    res.status(200).json({message:"Unparsed transactions retrieved successfully"});
 }
