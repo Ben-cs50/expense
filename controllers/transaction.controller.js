@@ -25,3 +25,15 @@ export const updateTransactionById = (req, res) => {
     res.status(200).json({message:`Transaction ${id} updated successfully`, transaction: updateTransaction});
 
 }
+export const createManualTransaction = (req, res) => {
+    console.log("Creating manual transaction");
+
+    const transactionData = req.body
+
+    const newTransaction = {
+        id: Date.now().toString(),
+        ...transactionData
+
+    };
+    res.status(200).json({message:"Manual transaction created successfully", transaction: newTransaction})
+}
