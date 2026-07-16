@@ -8,6 +8,7 @@ import createManualTransaction from './routes/transactions.route.js'
 import listUnparsedTransactions from './routes/transactions.route.js'
 import listCategories from './routes/categories.route.js'
 import createCategory from './routes/categories.route.js'
+import createCategoryRule from './routes/categories.route.js'
 
 
 dotenv.config(); 
@@ -29,6 +30,7 @@ app.use('/api', createManualTransaction);
 app.use('/api', listUnparsedTransactions);
 app.use('/api', listCategories);
 app.use('/api', createCategory);
+app.use('/api', createCategoryRule);
  
 
 
