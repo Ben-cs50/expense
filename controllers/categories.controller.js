@@ -15,6 +15,11 @@ export const createCategory = (req, res) => {
 
     res.status(200).json({message:"Category created successfully", category: newCategory});
 }
+export const listCategoryRule = (req, res) => {
+    console.log("Listing all category rules")
+    
+    res.status(200).json({message:"Category rules retrieved successfully"})
+}
 
 export const createCategoryRule = (req, res) =>{
     console.log("Creating a new category rule");
