@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 
 dotenv.config(({ path: '../.env' }));
 
+
+// db connection
 const pool = mysql.createPool ({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -12,6 +14,9 @@ const pool = mysql.createPool ({
     connectionLimit: 10
 });
 
+
+
+// error 
 try{
     const connection = await pool.getConnection();
 
@@ -19,13 +24,12 @@ try{
 
         connection.release();
        
-
-    
     
 }catch(err){
      console.log("Database connection failed" + err.message)
     
 }
+
 
 
 

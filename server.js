@@ -42,18 +42,7 @@ const PORT = process.env.PORT
 
 app.use(express.json());
 
-app.get('/users', async (req, res) => {
-    try{
-    const [rows] = await db.query('SELECT * FROM users');
-          
-            res.json(rows);
 
-        }catch(err){
-            return res.status(500).json({error: err.message});
-        }
-    // );
-    // res.send('Server is running on node');
-});
 
 app.use('/api', smsWebhook);
 app.use('/api', transactions);
