@@ -11,6 +11,7 @@ import listCategories from './routes/categories.route.js'
 import createCategory from './routes/categories.route.js'
 import createCategoryRule from './routes/categories.route.js'
 import listCategoryRule from './routes/categories.route.js'
+import user from './routes/user.route.js'
 
 
 
@@ -41,7 +42,7 @@ app.use(express.json());
 
 app.get('/', async (req, res) => {
     try{
-    const [rows] = await pool.query('SELECT * FROM raw_messages');
+    const [rows] = await pool.query('SELECT * FROM users');
           
             res.json(rows);
 
@@ -62,6 +63,7 @@ app.use('/api', listCategories);
 app.use('/api', createCategory);
 app.use('/api', createCategoryRule);
 app.use('/api', listCategoryRule);
+app.use('/api', user);
  
 
 
