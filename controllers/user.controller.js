@@ -7,7 +7,7 @@ import mysql from "mysql2/promise"
 
 export const user = (req, res) => {
 
-    console.log("User creation")
+    console.log("User validated")
 
     const {username, password} = req.body
 

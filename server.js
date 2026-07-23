@@ -12,6 +12,7 @@ import createCategory from './routes/categories.route.js'
 import createCategoryRule from './routes/categories.route.js'
 import listCategoryRule from './routes/categories.route.js'
 import user from './routes/user.route.js'
+import db from './models/db.js'
 
 
 
@@ -22,28 +23,28 @@ const app = express();
 const PORT = process.env.PORT 
 
 // db connection
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    connectionLimit: 10
-});
+// const pool = mysql.createPool({
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME,
+//     connectionLimit: 10
+// });
 
 // error defination
-pool.getConnection((err) => {
-    if(err){
-        console.error("Database connection failed: " + err.stack);
-        return;
-    }
-    console.log("Database connected successfully")
-});
+// pool.getConnection((err) => {
+//     if(err){
+//         console.error("Database connection failed: " + err.stack);
+//         return;
+//     }
+//     console.log("Database connected successfully")
+// });
 
 app.use(express.json());
 
-app.get('/', async (req, res) => {
+app.get('/users', async (req, res) => {
     try{
-    const [rows] = await pool.query('SELECT * FROM users');
+    const [rows] = await db.query('SELECT * FROM users');
           
             res.json(rows);
 
