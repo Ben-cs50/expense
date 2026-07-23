@@ -11,7 +11,7 @@ import listCategories from './routes/categories.route.js'
 import createCategory from './routes/categories.route.js'
 import createCategoryRule from './routes/categories.route.js'
 import listCategoryRule from './routes/categories.route.js'
-import user from './routes/user.route.js'
+import User from './routes/user.route.js'
 import db from './models/db.js'
 
 
@@ -54,7 +54,7 @@ app.use('/api', listCategories);
 app.use('/api', createCategory);
 app.use('/api', createCategoryRule);
 app.use('/api', listCategoryRule);
-app.use('/api', user);
+app.use('/api', User);
  
 
 

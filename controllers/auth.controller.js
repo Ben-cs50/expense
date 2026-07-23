@@ -6,7 +6,6 @@ import dotenv from "dotenv"
 dotenv.config();
 
 
-
 export const login = (req, res) => {
     
     const {username, password} = req.body
