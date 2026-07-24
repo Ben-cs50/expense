@@ -3,54 +3,47 @@ import express from "express"
 import mysql from "mysql2/promise"
 import db from '../models/db.js'
 import bcrypt from 'bcrypt'
+import jwt from "jsonwebtoken"
 
-
-
-
-
-
-
-
+dotenv.config();
 export const User = async (req, res) => {
+    const { username, password, email, first_name, last_name } = req.body;
 
-    // console.log("User validated")
+    // Optimization: Immediate fail-fast check to save CPU cycles on hashing
+    if (!username || !password || !email) {
+        return res.status(400).json({ error: "Missing required fields" });
+    }
 
-    const {username, password, email, first_name, last_name} = req.body
+    try {
+        const saltRounds = 12;
+        const passwordHash = await bcrypt.hash(password, saltRounds);
 
-   
+        const query = 'INSERT INTO users(username, password, email, first_name, last_name) VALUES (?,?,?,?,?) ';
+        
+        // result holds the execution metadata from mysql2
+        const [result] = await db.query(query, [username, passwordHash, email, first_name, last_name]);
+        
+        // Correct way to grab the newly created user's ID
+        const userId = result.insertId;
 
-    const saltRounds = 12;
+        
+        const token = jwt.sign(
+            { userId: userId, email: email }, 
+            process.env.JWT_KEY,
+            { expiresIn: "1h" } 
+        );
 
-    const passwordHash = await bcrypt.hash(password, saltRounds);
+      
+        return res.status(201).json({
+            message: "User created successfully",
+            token: token
+        });
 
-    // const newUser = new user({
-    //     ...req.body,
-    //     password: passwordHash
-
-    // });
-    // await newUser.save();
-
-    // if(err){
-    //     console.log("Error processing request: " +err)
-
-    // }
-
-    // res.status(200).json({message: "User with hashed password created"});
-
-
-
-        try{
-    const query = 'INSERT INTO users(username, password, email, first_name, last_name) VALUES (?,?,?,?,?) ';
-    const [result] = await db.query(query, [username, passwordHash, email, first_name, last_name]);
-          
-            res.status(200).json({message: "User created successfully"})
-
-        }catch(err){
-            return res.status(400).json({error: "Database insertion failed " + err.message});
+    } catch (err) {
+        // Optimization: Catch duplicate username or email conflicts
+        if (err.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({ error: "Username or Email already exists" });
         }
-    // );
-    // res.send('Server is running on node');
-
-    
+        return res.status(500).json({ error: "Database insertion failed: " + err.message });
+    }
 }
-
