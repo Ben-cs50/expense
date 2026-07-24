@@ -5,6 +5,7 @@ import db from '../models/db.js'
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
 
+
 dotenv.config();
 
 
@@ -48,4 +49,26 @@ export const User = async (req, res) => {
         }
         return res.status(500).json({ error: "Database insertion failed: " + err.message });
     }
+}
+
+export const getUsers = async (req, res) => {
+    try{
+        const query = 'SELECT username, password, email, first_name, last_name FROM users';
+        const [rows] = await db.query(query)
+
+        return res.status(200).json({
+            success: true,
+            count: rows.length,
+            data: rows 
+        });
+
+
+    }catch(err){
+        return res.status(500).json({ 
+            error: "Failed to fetch users from database: " + err.message 
+
+    });
+
+
+}
 }
