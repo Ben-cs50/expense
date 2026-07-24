@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
 
 dotenv.config();
+
+
 export const User = async (req, res) => {
     const { username, password, email, first_name, last_name } = req.body;
 
@@ -41,7 +43,7 @@ export const User = async (req, res) => {
 
     } catch (err) {
         // Optimization: Catch duplicate username or email conflicts
-        if (err.code === 'ER_DUP_ENTRY') {
+        if (err === 'ER_DUP_ENTRY') {
             return res.status(409).json({ error: "Username or Email already exists" });
         }
         return res.status(500).json({ error: "Database insertion failed: " + err.message });
